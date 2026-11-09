@@ -97,8 +97,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
-            user-select: none;
         }
 
         .brand-title i {
@@ -271,8 +269,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
-            user-select: none;
         }
 
         .user-profile-badge {
@@ -623,62 +619,6 @@
         .menu-item i.fa-chevron-right { color: #64748b; font-size: 11px; }
 
         /* ----------------------------------------------------
-           5. HIDDEN ADMIN PANEL
-        ---------------------------------------------------- */
-        #screen-admin {
-            padding: 15px;
-            background: #090c15;
-            min-height: 100vh;
-        }
-
-        .admin-badge {
-            background: #ef4444;
-            color: #fff;
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: 800;
-        }
-
-        .admin-card {
-            background: #141828;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 15px;
-        }
-
-        .admin-card h3 {
-            font-size: 13px;
-            color: #ffd700;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .user-list-item {
-            background: #090c16;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 11px;
-            border-left: 3px solid #38bdf8;
-            color: #fff;
-        }
-
-        .admin-btn-action {
-            background: #22c55e;
-            color: #fff;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        /* ----------------------------------------------------
            BOTTOM NAVIGATION BAR
         ---------------------------------------------------- */
         .bottom-nav {
@@ -814,8 +754,7 @@
         <div id="screen-auth" class="screen-view active-screen">
             <div class="auth-container">
                 <div class="top-header">
-                    <!-- Triple click on logo triggers admin prompt -->
-                    <span class="brand-title" onclick="handleSecretAdminClick()"><i class="fa-solid fa-gem"></i> EARN MATRIX</span>
+                    <span class="brand-title"><i class="fa-solid fa-gem"></i> EARN MATRIX</span>
                     <select class="lang-selector" onchange="showToast('Language preference updated!')">
                         <option value="bn" selected>বাংলা</option>
                         <option value="en">English</option>
@@ -886,6 +825,7 @@
                         </div>
                     </div>
 
+                    <!-- Explicit Button Click (No Form Stuck) -->
                     <button type="button" class="submit-btn" onclick="performRegistration()">
                         <i class="fa-solid fa-user-plus"></i> Register Now
                     </button>
@@ -909,6 +849,11 @@
                         </div>
                     </div>
 
+                    <div style="text-align: right; margin-bottom: 12px;">
+                        <a href="javascript:void(0)" onclick="openModal('forgot-modal')" style="color: #a0a5b5; font-size: 11px; text-decoration: none;">Forgot Password?</a>
+                    </div>
+
+                    <!-- Explicit Button Click -->
                     <button type="button" class="submit-btn" onclick="performLogin()">
                         <i class="fa-solid fa-right-to-bracket"></i> Login Now
                     </button>
@@ -924,7 +869,7 @@
 
             <!-- Fixed Header -->
             <div class="navbar">
-                <div class="brand-logo" onclick="handleSecretAdminClick()">
+                <div class="brand-logo">
                     <i class="fa-solid fa-gem"></i> EARN MATRIX
                 </div>
                 <div class="user-profile-badge" onclick="navigateTo('screen-profile')">
@@ -945,7 +890,7 @@
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-                                <div class="stat-number" id="stats-users">1</div>
+                                <div class="stat-number" id="stats-users">1654</div>
                                 <div class="stat-label">Registered Users</div>
                             </div>
                             <div class="stat-card">
@@ -1005,6 +950,7 @@
                         <i class="fa-solid fa-file-invoice" onclick="showToast('VIP রুলস: উচ্চ লেভেলে বেশি আয়ের সুযোগ!')" style="position: absolute; right: 0; color: #a0a5b5; cursor: pointer;"></i>
                     </div>
 
+                    <!-- Balances summary -->
                     <div class="status-info-section">
                         <div class="level-status-grid">
                             <div class="status-item">
@@ -1022,8 +968,10 @@
                         </div>
                     </div>
 
+                    <!-- Level VIP Cards -->
                     <div class="level-cards-container">
-                        <div class="level-card" onclick="showToast('Starter Card Activated')">
+                        <!-- Card Shop -->
+                        <div class="level-card" onclick="openNFTUpgrade('Card Shop', 0, 'Free Starter Tier')">
                             <div class="card-left">
                                 <div class="level-icon-wrapper">
                                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&q=80" alt="Shop">
@@ -1039,7 +987,8 @@
                             </div>
                         </div>
 
-                        <div class="level-card" onclick="showToast('Level 2 VIP Tier')">
+                        <!-- Level 2 -->
+                        <div class="level-card" onclick="openNFTUpgrade('Level 2 VIP', 30, 'Daily Profit 5%')">
                             <div class="card-left">
                                 <div class="level-icon-wrapper">
                                     <img src="https://cdn-icons-png.flaticon.com/512/3069/3069201.png" alt="Level 2">
@@ -1051,6 +1000,40 @@
                             </div>
                             <div class="card-right">
                                 <div class="medal-icon"><img src="https://img.icons8.com/emoji/48/silver-medal-emoji.png" alt="Silver"></div>
+                                <i class="fa-solid fa-chevron-right" style="color: #64748b; font-size: 11px;"></i>
+                            </div>
+                        </div>
+
+                        <!-- Level 3 -->
+                        <div class="level-card" onclick="openNFTUpgrade('Level 3 VIP Ape', 500, 'Daily Profit 8%')">
+                            <div class="card-left">
+                                <div class="level-icon-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=200&q=80" alt="Level 3">
+                                </div>
+                                <div>
+                                    <h3 class="level-title">Level 3 VIP</h3>
+                                    <span class="trx-info">500.00 ~ 99999999.99 TRX</span>
+                                </div>
+                            </div>
+                            <div class="card-right">
+                                <div class="medal-icon"><img src="https://img.icons8.com/emoji/48/gold-medal-emoji.png" alt="Gold"></div>
+                                <i class="fa-solid fa-chevron-right" style="color: #64748b; font-size: 11px;"></i>
+                            </div>
+                        </div>
+
+                        <!-- Level 4 -->
+                        <div class="level-card" onclick="openNFTUpgrade('Level 4 Cyberpunk', 5000, 'Daily Profit 12%')">
+                            <div class="card-left">
+                                <div class="level-icon-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=200&q=80" alt="Level 4">
+                                </div>
+                                <div>
+                                    <h3 class="level-title">Level 4 VIP</h3>
+                                    <span class="trx-info">5000.00 ~ 99999999.99 TRX</span>
+                                </div>
+                            </div>
+                            <div class="card-right">
+                                <div class="medal-icon"><img src="https://img.icons8.com/emoji/48/blue-circle-emoji.png" alt="Blue"></div>
                                 <i class="fa-solid fa-chevron-right" style="color: #64748b; font-size: 11px;"></i>
                             </div>
                         </div>
@@ -1099,14 +1082,15 @@
                 <div class="page-content">
                     <div class="user-greeting" id="profile-display-name">Siam009</div>
 
+                    <!-- Profile Info Card -->
                     <div class="profile-card">
                         <div class="profile-row">
                             <span class="p-label">LEVEL</span>
                             <span class="p-value" id="profile-level-badge">VIP 0</span>
                         </div>
                         <div class="profile-row">
-                            <span class="p-label">Account Phone</span>
-                            <span class="p-value" id="profile-display-phone">01712345678</span>
+                            <span class="p-label">Position</span>
+                            <span class="p-value">SNAI MBR</span>
                         </div>
                         <div class="profile-row">
                             <span class="p-label">Account ID</span>
@@ -1116,8 +1100,13 @@
                             <span class="p-label">Total Funds</span>
                             <span class="p-value val-total-funds">0.00 TRX</span>
                         </div>
+                        <div class="profile-row">
+                            <span class="p-label">Available Amount</span>
+                            <span class="p-value val-total-funds">0.00 TRX</span>
+                        </div>
                     </div>
 
+                    <!-- Fast Action Buttons -->
                     <div class="action-buttons">
                         <button class="btn-action btn-recharge-green" onclick="openModal('recharge-modal')">
                             <i class="fa-solid fa-wallet"></i> Recharge
@@ -1127,6 +1116,36 @@
                         </button>
                     </div>
 
+                    <!-- Revenues Grid -->
+                    <div class="revenue-grid">
+                        <div class="revenue-box">
+                            <div class="rev-label">Total Revenue</div>
+                            <div class="rev-value" id="profile-tot-rev">0.00 TRX</div>
+                        </div>
+                        <div class="revenue-box">
+                            <div class="rev-label">Invitation Revenue</div>
+                            <div class="rev-value">0.00 TRX</div>
+                        </div>
+                        <div class="revenue-box full-width">
+                            <div class="rev-label">Today's Earnings</div>
+                            <div class="rev-value val-today-box">0.0000 TRX</div>
+                        </div>
+                    </div>
+
+                    <div class="nft-earning-banner">
+                        5 NFTs are continuously generating yields
+                    </div>
+
+                    <!-- 5 NFTs Mini Gallery -->
+                    <div class="nft-preview-scroll">
+                        <div class="nft-mini-card"><img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=200&q=80" alt="NFT 1"></div>
+                        <div class="nft-mini-card"><img src="https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?w=200&q=80" alt="NFT 2"></div>
+                        <div class="nft-mini-card"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=200&q=80" alt="NFT 3"></div>
+                        <div class="nft-mini-card"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&q=80" alt="NFT 4"></div>
+                        <div class="nft-mini-card"><img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?w=200&q=80" alt="NFT 5"></div>
+                    </div>
+
+                    <!-- Settings Menu -->
                     <div class="menu-list">
                         <div class="menu-item" onclick="claimDailyReward()">
                             <div class="menu-left"><i class="fa-solid fa-calendar-days"></i><span>Sign In Task (দৈনিক বোনাস)</span></div>
@@ -1134,6 +1153,18 @@
                         </div>
                         <div class="menu-item" onclick="openModal('share-modal')">
                             <div class="menu-left"><i class="fa-solid fa-share-nodes"></i><span>Recommend & Share</span></div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="menu-item" onclick="openModal('recharge-modal')">
+                            <div class="menu-left"><i class="fa-solid fa-wallet"></i><span>TRC20 Wallet Address</span></div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="menu-item" onclick="openModal('change-pass-modal')">
+                            <div class="menu-left"><i class="fa-solid fa-lock"></i><span>Change Password</span></div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="menu-item" onclick="showToast('সিকিউরিটি পিন সুরক্ষিত আছে!')">
+                            <div class="menu-left"><i class="fa-solid fa-key"></i><span>Change Payment PIN</span></div>
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
                         <div class="menu-item" style="color: #ef4444;" onclick="handleLogout()">
@@ -1144,35 +1175,10 @@
                 </div>
             </div>
 
-            <!-- TAB 5: SECRET ADMIN PANEL -->
-            <div id="screen-admin" class="screen-view">
-                <div class="page-content">
-                    <div class="section-header">
-                        <h2><i class="fa-solid fa-user-gear"></i> System Control Panel</h2>
-                        <span class="admin-badge">ADMIN MODE</span>
-                    </div>
-
-                    <!-- Pending Deposits -->
-                    <div class="admin-card">
-                        <h3>Pending Deposits <span id="admin-pending-dep-count" style="color:#22c55e;">(0)</span></h3>
-                        <div id="admin-deposit-list">No pending deposits.</div>
-                    </div>
-
-                    <!-- Pending Withdrawals -->
-                    <div class="admin-card">
-                        <h3>Pending Withdrawals <span id="admin-pending-with-count" style="color:#ef4444;">(0)</span></h3>
-                        <div id="admin-withdraw-list">No pending withdrawals.</div>
-                    </div>
-
-                    <!-- All Registered Users -->
-                    <div class="admin-card">
-                        <h3>Registered Users (<span id="admin-total-users-count">0</span>)</h3>
-                        <div id="admin-users-list"></div>
-                    </div>
-
-                    <button class="submit-btn" style="background:#ef4444; color:#fff;" onclick="navigateTo('screen-home')">Exit Admin Panel</button>
-                </div>
-            </div>
+            <!-- Floating Chat Support -->
+            <button class="floating-chat-btn" onclick="openModal('chat-modal')">
+                <i class="fa-solid fa-comment-dots"></i>
+            </button>
 
             <!-- Bottom Navigation -->
             <div class="bottom-nav">
@@ -1205,16 +1211,19 @@
     <div id="recharge-modal" class="modal-overlay">
         <div class="modal-box">
             <i class="fa-solid fa-xmark modal-close" onclick="closeModal('recharge-modal')"></i>
-            <h3 class="modal-title"><i class="fa-solid fa-qrcode"></i> Recharge TRX</h3>
-            <p style="font-size: 11px; color: #a0a5b5; margin-bottom: 10px;">নিচের ডিপোজিট অ্যাড্রেসে TRX সেন্ড করে রিকোয়েস্ট পাঠান:</p>
+            <h3 class="modal-title"><i class="fa-solid fa-qrcode"></i> Recharge TRX / USDT</h3>
+            <p style="font-size: 11px; color: #a0a5b5; margin-bottom: 10px;">নিচের ডিপোজিট অ্যাড্রেসে TRX সেন্ড করুন:</p>
+            
             <div style="background: #090c16; padding: 10px; border-radius: 8px; margin-bottom: 12px; word-break: break-all; font-size: 11px; border: 1px dashed #ffd700; color:#ffd700;">
                 TYD5qZ39W9r7pB3q11kGSmq8uRtxLpSmartNFT
             </div>
+
             <div class="form-group">
-                <label>Amount (TRX)</label>
-                <input type="number" id="deposit-input-amount" class="form-control" value="50" placeholder="Minimum: 30 TRX" style="padding-left:12px;">
+                <label>ডিপোজিট অ্যামাউন্ট (TRX)</label>
+                <input type="number" id="deposit-input-amount" class="form-control" value="50" placeholder="Minimum: 30 TRX" style="padding-left: 12px;">
             </div>
-            <button type="button" class="submit-btn" onclick="confirmDeposit()">Submit Deposit Request</button>
+
+            <button type="button" class="submit-btn" onclick="confirmDeposit()">ডিপোজিট জমা দিন</button>
         </div>
     </div>
 
@@ -1222,283 +1231,32 @@
     <div id="withdraw-modal" class="modal-overlay">
         <div class="modal-box">
             <i class="fa-solid fa-xmark modal-close" onclick="closeModal('withdraw-modal')"></i>
-            <h3 class="modal-title"><i class="fa-solid fa-money-bill-transfer"></i> Withdraw TRX</h3>
-            <div class="form-group">
-                <label>Withdraw Amount (TRX)</label>
-                <input type="number" id="withdraw-input-amount" class="form-control" value="20" placeholder="Minimum: 20 TRX" style="padding-left:12px;">
+            <h3 class="modal-title"><i class="fa-solid fa-mofa-mofa-mo            <!-- TAB 5: SECRET ADMIN PANEL -->
+            <div id="screen-admin" class="screen-view">
+                <div class="page-content">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-user-gear"></i> System Control Panel</h2>
+                        <span class="admin-badge">ADMIN MODE</span>
+                    </div>
+
+                    <!-- Pending Deposits -->
+                    <div class="admin-card">
+                        <h3>Pending Deposits <span id="admin-pending-dep-count" style="color:#22c55e;">(0)</span></h3>
+                        <div id="admin-deposit-list">No pending deposits.</div>
+                    </div>
+
+                    <!-- Pending Withdrawals -->
+                    <div class="admin-card">
+                        <h3>Pending Withdrawals <span id="admin-pending-with-count" style="color:#ef4444;">(0)</span></h3>
+                        <div id="admin-withdraw-list">No pending withdrawals.</div>
+                    </div>
+
+                    <!-- All Registered Users -->
+                    <div class="admin-card">
+                        <h3>Registered Users (<span id="admin-total-users-count">0</span>)</h3>
+                        <div id="admin-users-list"></div>
+                    </div>
+
+                    <button class="submit-btn" style="background:#ef4444; color:#fff;" onclick="navigateTo('screen-home')">Exit Admin Panel</button>
+                </div>
             </div>
-            <button type="button" class="submit-btn" onclick="confirmWithdraw()">Submit Withdraw Request</button>
-        </div>
-    </div>
-
-    <!-- Share Modal -->
-    <div id="share-modal" class="modal-overlay">
-        <div class="modal-box">
-            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('share-modal')"></i>
-            <h3 class="modal-title"><i class="fa-solid fa-share-nodes"></i> Invite & Earn</h3>
-            <p style="font-size: 12px; color: #a0a5b5; margin-bottom: 10px;">আপনার রেফারেল লিংক শেয়ার করুন:</p>
-            <div style="background: #090c16; padding: 10px; border-radius: 8px; font-size: 11px; color: #ffd700; word-break: break-all; margin-bottom: 12px;" id="ref-link-box">
-                https://smart-nft-ai.opensia.com/register?ref=1654
-            </div>
-            <button type="button" class="submit-btn" onclick="showToast('লিংক কপি করা হয়েছে!')">কপি করুন</button>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT SYSTEM ENGINE -->
-    <script>
-        // Database Initialization via LocalStorage
-        let dbUsers = JSON.parse(localStorage.getItem('em_users')) || [];
-        let dbDeposits = JSON.parse(localStorage.getItem('em_deposits')) || [];
-        let dbWithdraws = JSON.parse(localStorage.getItem('em_withdraws')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('em_current_user')) || null;
-
-        let secretClickCount = 0;
-
-        function saveDB() {
-            localStorage.setItem('em_users', JSON.stringify(dbUsers));
-            localStorage.setItem('em_deposits', JSON.stringify(dbDeposits));
-            localStorage.setItem('em_withdraws', JSON.stringify(dbWithdraws));
-            localStorage.setItem('em_current_user', JSON.stringify(currentUser));
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.style.display = 'block';
-            setTimeout(() => { t.style.display = 'none'; }, 2500);
-        }
-
-        function switchAuthTab(type) {
-            document.getElementById('btn-reg-tab').classList.toggle('active', type === 'register');
-            document.getElementById('btn-login-tab').classList.toggle('active', type === 'login');
-            document.getElementById('form-register').classList.toggle('active-form', type === 'register');
-            document.getElementById('form-login').classList.toggle('active-form', type === 'login');
-        }
-
-        // Secret Admin Trigger
-        function handleSecretAdminClick() {
-            secretClickCount++;
-            if (secretClickCount >= 3) {
-                secretClickCount = 0;
-                const pin = prompt("Enter Secret Admin Password:");
-                if (pin === "998877") {
-                    document.getElementById('screen-auth').style.display = 'none';
-                    document.getElementById('main-app-container').style.display = 'block';
-                    loadAdminPanelData();
-                    navigateTo('screen-admin');
-                } else if (pin !== null) {
-                    showToast("ভুল পাসওয়ার্ড!");
-                }
-            }
-        }
-
-        function performRegistration() {
-            const name = document.getElementById('reg-name').value.trim();
-            const phone = document.getElementById('reg-phone').value.trim();
-            const pass = document.getElementById('reg-pass').value.trim();
-
-            if (!name || !phone || !pass) {
-                showToast("সব তথ্য সঠিকভাবে পূরণ করুন!");
-                return;
-            }
-
-            if (dbUsers.find(u => u.phone === phone)) {
-                showToast("এই নম্বরে ইতিমধ্যেই একাউন্ট রয়েছে!");
-                return;
-            }
-
-            const accountId = Math.floor(1000 + Math.random() * 9000).toString();
-            currentUser = { name, phone, pass, accountId, balance: 0.00, todayEarn: 0.00 };
-            dbUsers.push(currentUser);
-            saveDB();
-
-            showToast("রেজিস্ট্রেশন সফল হয়েছে!");
-            launchMainApp();
-        }
-
-        function performLogin() {
-            const phone = document.getElementById('login-account').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-
-            const user = dbUsers.find(u => u.phone === phone && u.pass === pass);
-            if (user) {
-                currentUser = user;
-                saveDB();
-                showToast("লগইন সফল হয়েছে!");
-                launchMainApp();
-            } else {
-                showToast("ফোন নম্বর বা পাসওয়ার্ড ভুল!");
-            }
-        }
-
-        function launchMainApp() {
-            syncUI();
-            document.getElementById('screen-auth').style.display = 'none';
-            document.getElementById('main-app-container').style.display = 'block';
-            navigateTo('screen-home');
-        }
-
-        function syncUI() {
-            if (!currentUser) return;
-            const bal = currentUser.balance.toFixed(2) + ' TRX';
-            
-            document.getElementById('nav-balance').textContent = bal;
-            document.querySelectorAll('.val-total-funds').forEach(el => el.textContent = bal);
-            document.querySelectorAll('.val-today-bar').forEach(el => el.textContent = currentUser.todayEarn.toFixed(4) + ' TRX');
-            document.querySelectorAll('.val-today-box').forEach(el => el.textContent = currentUser.todayEarn.toFixed(4) + ' TRX');
-            document.querySelectorAll('.val-today-earn').forEach(el => el.textContent = currentUser.todayEarn.toFixed(4));
-            
-            document.getElementById('profile-display-name').textContent = currentUser.name;
-            document.getElementById('profile-display-phone').textContent = currentUser.phone;
-            document.getElementById('profile-display-id').textContent = currentUser.accountId || '1654';
-            document.getElementById('stats-users').textContent = dbUsers.length > 0 ? dbUsers.length : 1;
-            document.getElementById('ref-link-box').textContent = `https://smart-nft-ai.opensia.com/register?ref=${currentUser.accountId || '1654'}`;
-        }
-
-        function navigateTo(screenId) {
-            document.querySelectorAll('#main-app-container .screen-view').forEach(v => v.classList.remove('active-screen'));
-            document.getElementById(screenId).classList.add('active-screen');
-            if (screenId === 'screen-admin') loadAdminPanelData();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function openModal(id) { document.getElementById(id).classList.add('active-modal'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active-modal'); }
-
-        // User Requests
-        function confirmDeposit() {
-            const amt = parseFloat(document.getElementById('deposit-input-amount').value);
-            if (!amt || amt < ৩০) {
-                showToast("সর্বনিম্ন ৩০ TRX ডিপোজিট করতে হবে");
-                return;
-            }
-
-            dbDeposits.push({ id: Date.now(), phone: currentUser.phone, amt, status: 'pending' });
-            saveDB();
-            closeModal('recharge-modal');
-            showToast("ডিপোজিট রিকোয়েস্ট জমা হয়েছে!");
-            
-            document.getElementById('tx-history').innerHTML = `
-                <div style="display:flex; justify-content:space-between; padding: 6px 0; color:#fff;">
-                    <span style="color:#ffd700;">Pending Deposit: +${amt} TRX</span>
-                    <span>Just Now</span>
-                </div>
-            `;
-        }
-
-        function confirmWithdraw() {
-            const amt = parseFloat(document.getElementById('withdraw-input-amount').value);
-            if (!amt || amt < 20) {
-                showToast("নূন্যতম ১০ TRX উত্তোলন করতে হবে");
-                return;
-            }
-            if (amt > currentUser.balance) {
-                showToast("একাউন্টে পর্যাপ্ত ব্যালেন্স নেই!");
-                return;
-            }
-
-            dbWithdraws.push({ id: Date.now(), phone: currentUser.phone, amt, status: 'pending' });
-            saveDB();
-            closeModal('withdraw-modal');
-            showToast("উত্তোলন আবেদন পাঠানো হয়েছে!");
-        }
-
-        function claimDailyReward() {
-            currentUser.balance += 1.00;
-            currentUser.todayEarn += 1.00;
-            saveDB();
-            syncUI();
-            showToast("🎉 ডেইলি বোনাস হিসেবে 1 TRX যোগ হয়েছে!");
-        }
-
-        // Admin Panel Controls
-        function loadAdminPanelData() {
-            document.getElementById('admin-total-users-count').textContent = dbUsers.length;
-            
-            // Users list
-            document.getElementById('admin-users-list').innerHTML = dbUsers.length === 0 ? 'No users found.' : dbUsers.map(u => `
-                <div class="user-list-item">
-                    <strong>${u.name}</strong> (${u.phone})<br>
-                    Balance: <strong>${u.balance.toFixed(2)} TRX</strong>
-                    <button class="admin-btn-action" onclick="adminEditBalance('${u.phone}')" style="float:right;">Edit Balance</button>
-                </div>
-            `).join('');
-
-            // Pending Deposits
-            const pDep = dbDeposits.filter(d => d.status === 'pending');
-            document.getElementById('admin-pending-dep-count').textContent = `(${pDep.length})`;
-            document.getElementById('admin-deposit-list').innerHTML = pDep.length === 0 ? 'No pending deposits.' : pDep.map(d => `
-                <div class="user-list-item">
-                    Phone: ${d.phone} | Amt: <strong>${d.amt} TRX</strong>
-                    <button class="admin-btn-action" onclick="adminApproveDeposit(${d.id})" style="float:right;">Approve</button>
-                </div>
-            `).join('');
-
-            // Pending Withdrawals
-            const pWith = dbWithdraws.filter(w => w.status === 'pending');
-            document.getElementById('admin-pending-with-count').textContent = `(${pWith.length})`;
-            document.getElementById('admin-withdraw-list').innerHTML = pWith.length === 0 ? 'No pending withdrawals.' : pWith.map(w => `
-                <div class="user-list-item">
-                    Phone: ${w.phone} | Amt: <strong>${w.amt} TRX</strong>
-                    <button class="admin-btn-action" onclick="adminApproveWithdraw(${w.id})" style="float:right;">Approve</button>
-                </div>
-            `).join('');
-        }
-
-        function adminApproveDeposit(id) {
-            const dep = dbDeposits.find(d => d.id === id);
-            if (dep) {
-                dep.status = 'approved';
-                const u = dbUsers.find(x => x.phone === dep.phone);
-                if (u) u.balance += dep.amt;
-                if (currentUser && currentUser.phone === dep.phone) currentUser.balance += dep.amt;
-                saveDB();
-                syncUI();
-                loadAdminPanelData();
-                showToast("ডিপোজিট সফলভাবে অ্যাপ্রুভ করা হয়েছে!");
-            }
-        }
-
-        function adminApproveWithdraw(id) {
-            const wit = dbWithdraws.find(w => w.id === id);
-            if (wit) {
-                wit.status = 'approved';
-                const u = dbUsers.find(x => x.phone === wit.phone);
-                if (u) u.balance -= wit.amt;
-                if (currentUser && currentUser.phone === wit.phone) currentUser.balance -= wit.amt;
-                saveDB();
-                syncUI();
-                loadAdminPanelData();
-                showToast("উইথড্র সফলভাবে অ্যাপ্রুভ করা হয়েছে!");
-            }
-        }
-
-        function adminEditBalance(phone) {
-            const u = dbUsers.find(x => x.phone === phone);
-            if (u) {
-                const nb = prompt(`Enter new balance for ${u.name}:`, u.balance);
-                if (nb !== null) {
-                    u.balance = parseFloat(nb) || 0;
-                    if (currentUser && currentUser.phone === phone) currentUser.balance = u.balance;
-                    saveDB();
-                    syncUI();
-                    loadAdminPanelData();
-                }
-            }
-        }
-
-        function handleLogout() {
-            currentUser = null;
-            saveDB();
-            document.getElementById('main-app-container').style.display = 'none';
-            document.getElementById('screen-auth').style.display = 'block';
-            switchAuthTab('register');
-        }
-
-        // Auto Resume Session
-        if (currentUser) {
-            launchMainApp();
-        }
-    </script>
-</body>
-</html>
