@@ -1368,8 +1368,8 @@
         // User Requests
         function confirmDeposit() {
             const amt = parseFloat(document.getElementById('deposit-input-amount').value);
-            if (!amt || amt < 10) {
-                showToast("সর্বনিম্ন ১০ TRX ডিপোজিট করতে হবে");
+            if (!amt || amt < ৩০) {
+                showToast("সর্বনিম্ন ৩০ TRX ডিপোজিট করতে হবে");
                 return;
             }
 
@@ -1389,7 +1389,7 @@
         function confirmWithdraw() {
             const amt = parseFloat(document.getElementById('withdraw-input-amount').value);
             if (!amt || amt < 20) {
-                showToast("নূন্যতম ২০ TRX উত্তোলন করতে হবে");
+                showToast("নূন্যতম ১০ TRX উত্তোলন করতে হবে");
                 return;
             }
             if (amt > currentUser.balance) {
@@ -1404,11 +1404,11 @@
         }
 
         function claimDailyReward() {
-            currentUser.balance += 5.00;
-            currentUser.todayEarn += 5.00;
+            currentUser.balance += 1.00;
+            currentUser.todayEarn += 1.00;
             saveDB();
             syncUI();
-            showToast("🎉 ডেইলি বোনাস হিসেবে ৫ TRX যোগ হয়েছে!");
+            showToast("🎉 ডেইলি বোনাস হিসেবে 1 TRX যোগ হয়েছে!");
         }
 
         // Admin Panel Controls
